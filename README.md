@@ -1,0 +1,2 @@
+# MonoCore
+Core for MonoCMS
