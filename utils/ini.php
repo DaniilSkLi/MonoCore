@@ -34,8 +34,11 @@ class MONO_ini {
         }
     }
 
-    public function Get() {
+    public function GetIni() {
         return $this->ini;
+    }
+    public function Get($name) {
+        return $this->ini[$name];
     }
     public function IsMulti() {
         return $this->multi;

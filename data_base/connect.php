@@ -6,7 +6,7 @@ class MONO_Connect {
     public function Try() {
         try {
             $ini = new MONO_ini(CORE . "Data/connect.ini");
-            $MONO_HOST = $ini->Get();
+            $MONO_HOST = $ini->GetIni();
 
             $this->x["TablePrefix"] = $MONO_HOST["table_prefix"];
             $this->x["PDO"] = new PDO('mysql:dbname='.$MONO_HOST["db"].';host='.$MONO_HOST["host"], $MONO_HOST["login"], $MONO_HOST["password"]);
