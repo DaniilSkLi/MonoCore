@@ -12,20 +12,20 @@ class MONO_include {
     }
 
     /* JS */
-    function js($url) {
+    public static function js($url) {
         echo "<script src=".$url."></script>";
     }
-    function js_array($array) {
+    public static function js_array($array) {
         foreach ($array as $url) {
             echo "<script src=".$url."></script>";
         }
     }
 
     /* Font */
-    function font($url) {
+    public static function font($url) {
         self::css($url);
     }
-    function MONO_include_font_array($array) {
+    public static function MONO_include_font_array($array) {
         self::css_array($array);
     }
 }
