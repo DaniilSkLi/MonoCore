@@ -2,47 +2,63 @@
 
 class MONO_ini {
     private $filePath = "";
+    private $file;
     private $ini;
+    private $curIni;
     private $multi = false;
+    private $rewrite = false;
 
     public function __construct($file, $rewrite = false)
     {
-        $this->filePath = $file;
-
-        if ($rewrite) $this->ini = array();
-        else $this->ini = parse_ini_file($file, true);
-
-        $this->ConvertBool();
-
-        $this->multi = $this->IsMultiArr($this->ini);
+        $this->Open($file, $rewrite);
     }
 
+    public function Open($file, $rewrite = false) {
+        $this->filePath = $file;
+        $this->rewrite = $rewrite;
+
+        $this->curIni = parse_ini_file($this->filePath, true);
+        $this->multi = $this->IsMultiArr($this->curIni);
+        $this->ConvertBool();
+
+        $this->ini = array();
+        $this->file = new MONO_File($this->filePath, $rewrite);
+    }
+
+    // Convert bool string in ini to bool
     private function ConvertBool() {
         if ($this->multi) {
-            foreach ($this->ini as $group => $arr) {
-                foreach ($this->ini as $key => $value) {
-                    if ($value == "1") $this->ini[$key] = true;
-                    if ($value == "0") $this->ini[$key] = false;
+            foreach ($this->curIni as $group => $arr) {
+                foreach ($this->curIni as $key => $value) {
+                    if ($value == "1") $this->curIni[$key] = true;
+                    if ($value == "0") $this->curIni[$key] = false;
                 }
             }
         }
         else {
-            foreach ($this->ini as $key => $value) {
-                if ($value == "1") $this->ini[$key] = true;
-                if ($value == "0") $this->ini[$key] = false;
+            foreach ($this->curIni as $key => $value) {
+                if ($value == "1") $this->curIni[$key] = true;
+                if ($value == "0") $this->curIni[$key] = false;
             }
         }
     }
 
+    // Get ini file to user
     public function GetIni() {
-        return $this->ini;
+        return $this->curIni;
     }
-    public function Get($name) {
+
+    // GEt data from ini
+    public function Get($name) { // fix
         return $this->ini[$name];
     }
+
+    // Return multi value to user
     public function IsMulti() {
         return $this->multi;
     }
+
+    // Check ini is multi-arr or single arr
     private function IsMultiArr($arr) {
         $multi = false;
         foreach ($arr as $value) {
@@ -52,6 +68,7 @@ class MONO_ini {
         return $multi;
     }
 
+    // Write data to ini arr
     public function Write($arr) {
         $multi = $this->IsMultiArr($arr);
 
@@ -65,6 +82,7 @@ class MONO_ini {
         }
     }
 
+    // Close file
     public function Close() {
         $write_data = "";
         if ($this->multi) {
@@ -89,6 +107,12 @@ class MONO_ini {
                 else $write_data .= $key . " = '" . $value . "';\n";
             }
         }
-        file_put_contents($this->filePath, $write_data);
+
+        $this->file->Write($write_data);
+        $this->file->Close();
+    }
+
+    public function Reset() {
+        $this->Open($this->filePath, $this->rewrite);
     }
 }

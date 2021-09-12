@@ -1,0 +1,7 @@
+{
+  "db" : "test",
+  "host" : "localhost",
+  "login" : "root",
+  "password" : "",
+  "table_prefix" : "mono_"
+}

@@ -27,7 +27,7 @@ class MONO_Update {
     }
 
     public static function CurrentVersion() {
-        $ini = new MONO_ini(__DIR__ . "/../Data/info.ini");
+        $ini = new MONO_ini(__DIR__ . "/../Data/info.json");
         $V = $ini->Get("version");
         return $V;
     }
