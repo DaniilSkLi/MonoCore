@@ -18,6 +18,16 @@ class MONO_Connect {
         }
     }
 
+    public function Change($login, $password, $db, $host = "localhost",  $table_prefix = "mono_") {
+        MONO_JSON::Encode(array(
+            "db" => $db,
+            "host" => $host,
+            "login" => $login,
+            "password" => $password,
+            "table_prefix" => $table_prefix
+        ), CORE . "Data/connect.json");
+    }
+
     public function __get($name) {
         if (isset($this->x[$name])) {
             $r = $this->x[$name];

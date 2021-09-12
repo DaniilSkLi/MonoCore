@@ -1,9 +1,17 @@
 <?php
 
 class MONO_JSON {
-    public static function Encode($var)
+    public static function Encode($var, $file = false)
     {
-        return json_encode($var,  JSON_UNESCAPED_UNICODE);
+        $json = json_encode($var,  JSON_UNESCAPED_UNICODE);
+        if ($file)
+        {
+            $file = new MONO_File($file, true, true);
+            $file->Write($json);
+            $file->Close();
+        }
+
+        return $json;
     }
 
     public static function Decode($json, $file = NULL)

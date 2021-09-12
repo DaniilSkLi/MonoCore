@@ -1,13 +1,14 @@
 <?php
 
 class MONO_include {
+
     /* CSS */
     public static function css($url) {
         echo "<link rel='stylesheet' href=".$url.">";
     }
     public static function css_array($array) {
         foreach ($array as $url) {
-            echo "<link rel='stylesheet' href=".$url.">";
+            self::css($url);
         }
     }
 
@@ -17,15 +18,17 @@ class MONO_include {
     }
     public static function js_array($array) {
         foreach ($array as $url) {
-            echo "<script src=".$url."></script>";
+            self::js($url);
         }
     }
 
     /* Font */
-    public static function font($url) {
-        self::css($url);
+    public static function font($url, $name) {
+        echo "<style>@font-face { font-family: $name; src: url($url); }</style>";
     }
-    public static function MONO_include_font_array($array) {
-        self::css_array($array);
+    public static function font_array($array) {
+        foreach ($array as $name => $url) {
+            self::font($url, $name);
+        }
     }
 }
