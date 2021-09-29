@@ -6,33 +6,30 @@ class MONO_Config {
     public function __construct($table) {
         $this->table = $table;
 
-        if (!MONO_DB::ExistsTable($table)) {
-            MONO_DB::CreateTable($table, array(
-                "name" => "varchar(512)",
-                "value" => "varchar(1024)"
-            ));
-        }
+        MONO_DB::create($table, function($t) {
+            $t->string("name");
+            $t->json("value");
+        });
     }
 
     public function Set($name, $value) {
-        if (!MONO_DB::Exists($this->table, "`name`='$name'")) {
-            return MONO_DB::Insert($this->table, array(
-                "name" => $name,
-                "value" => $value
-            ));
-        }
-        else return false;
+        if (MONO_DB::table($this->table)->where("name", $name)->get() == array())
+
+            return MONO_DB::table($this->table)->insert(["name" => $name, "value" => MONO_JSON::Encode($value)]);
+
+        else
+            return MONO_DB::table($this->table)->update(["name" => $name, "value" => MONO_JSON::Encode($value)]);
     }
 
     public function Get($name) {
-        return MONO_DB::Select($this->table, "value", "`name`='$name'")[0][0];
+        return MONO_JSON::Decode(MONO_DB::table($this->table)->where("name", $name)->value("value"));
     }
 
     public function UnSet($name) {
-        return MONO_DB::Delete($this->table, "`name`='$name'");
+        return MONO_DB::table($this->table)->where("name", $name)->delete();
     }
 
     public function Destroy() {
-        return MONO_DB::Drop($this->table);
+        return MONO_DB::drop($this->table);
     }
 }

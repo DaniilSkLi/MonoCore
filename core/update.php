@@ -18,7 +18,7 @@ class MONO_Update {
 
     public static function Update() {
         if (self::Check() != false) {
-            $upIni = new MONO_ini(__DIR__ . "/../Data/update.ini");
+            $upIni = new MONO_ini(__DIR__ . "/../data/update.ini");
             echo "<script>window.open('". $upIni->Get("updateSource") ."')</script>";
         }
         else {
@@ -27,13 +27,13 @@ class MONO_Update {
     }
 
     public static function CurrentVersion() {
-        $ini = new MONO_ini(__DIR__ . "/../Data/info.json");
+        $ini = new MONO_ini(__DIR__ . "/../data/info.json");
         $V = $ini->Get("version");
         return $V;
     }
 
     public static function ServerVersion() {
-        $upIni = new MONO_ini(__DIR__ . "/../Data/update.ini");
+        $upIni = new MONO_ini(__DIR__ . "/../data/update.ini");
         $server = $upIni->Get("newVersionFile");
         $serverIni = explode(";\n", file_get_contents($server));
 

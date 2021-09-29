@@ -5,7 +5,7 @@ class MONO_Connect {
 
     public function Try() {
         try {
-            $MONO_HOST = MONO_JSON::Decode(CORE . "Data/connect.json");
+            $MONO_HOST = MONO_JSON::Decode(CORE . "data/connect.json");
 
             $this->x["TablePrefix"] = $MONO_HOST["table_prefix"];
             $this->x["PDO"] = new PDO('mysql:dbname='.$MONO_HOST["db"].';host='.$MONO_HOST["host"] . ";charset=utf8", $MONO_HOST["login"], $MONO_HOST["password"]);

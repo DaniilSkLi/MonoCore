@@ -26,9 +26,7 @@ class MONO_JSON {
 
         if ($file)
         {
-            $file = new MONO_File($json);
-            $json = $file->Read();
-            $file->Close();
+            $json = file_get_contents($json);
         }
 
         return json_decode($json, true);
