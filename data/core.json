@@ -1,0 +1,33 @@
+{
+  "info" : {
+    "name" : "MonoCore",
+    "github" : "https://github.com/DaniilSkLi/MonoCore/",
+    "version" : "0.3.0",
+    "author" : "@DaniilSkLi",
+    "authorLink" : "https://github.com/DaniilSkLi",
+    "year" : "2021",
+
+    "minPHP": "5.4.0"
+  },
+
+  "db" : {
+    "db" : "test",
+    "host" : "localhost",
+    "login" : "root",
+    "password" : "",
+    "table_prefix" : "mono_"
+  },
+
+  "settings" : {
+    "debug" : true,
+    "errors" : true,
+    "warning" : true,
+
+    "upload" : {
+      "images" : {
+        "convert_webp" : true
+      },
+      "max_size" : 2097152
+    }
+  }
+}

@@ -6,9 +6,7 @@ class MONO_JSON {
         $json = json_encode($var,  JSON_UNESCAPED_UNICODE);
         if ($file)
         {
-            $file = new MONO_File($file, true, true);
-            $file->Write($json);
-            $file->Close();
+            file_put_contents($file, "$json");
         }
 
         return $json;

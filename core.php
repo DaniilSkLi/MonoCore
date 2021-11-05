@@ -1,11 +1,13 @@
 <?php
 
 define("CORE", __DIR__ . "/");
+define("CORE_CFG", json_decode(file_get_contents(CORE . "data/core.json"), true));
+define("CORE_LOAD", json_decode(file_get_contents(CORE . "data/load.json"), true));
+
+
 
 class Core
 {
-    public static $core_settings = "";
-
     public static function Start()
     {
         self::Connect();
@@ -13,19 +15,14 @@ class Core
 
     private static function Connect()
     {
-        /* Load core settings */
-        self::GetSettings();
-
-
-
         /* First load */
-        $first = explode(', ', self::$core_settings["Files"]["first"]);
+        $first = CORE_LOAD["load"]["files"]["first"];
 
         /* Load file-exceptions */
-        $nonLoad = explode(', ', self::$core_settings["Files"]["exceptions"]);
-        $experementalMode = self::$core_settings["Load"]["experemental"];
-        $experemental = explode(', ', self::$core_settings["Files"]["experemental"]);
-        $experementalUnLoad = explode(', ', self::$core_settings["Files"]["experementalUnLoad"]);
+        $nonLoad = CORE_LOAD["load"]["files"]["exceptions"];
+        $experimentalMode = CORE_LOAD["load"]["mode"]["experimental"];
+        $experimental = CORE_LOAD["load"]["files"]["experimental"];
+        $experimentalUnLoad = CORE_LOAD["load"]["files"]["experimentalUnLoad"];
 
 
 
@@ -39,10 +36,10 @@ class Core
 
         /* Diff to get all core modules without service files */
         $load = array_diff($files, $nonLoad);
-        if (!$experementalMode)
-            $load = array_diff($load, $experemental);
+        if (!$experimentalMode)
+            $load = array_diff($load, $experimental);
         else
-            $load = array_diff($load, $experementalUnLoad);
+            $load = array_diff($load, $experimentalUnLoad);
 
 
 
@@ -60,11 +57,6 @@ class Core
 
         /* Init file */
         require_once __DIR__ . "/" . "init.php";
-    }
-
-    private static function GetSettings()
-    {
-        self::$core_settings = parse_ini_file(__DIR__ . "/settings.ini", true);
     }
 
     private static function rsearch($folder, $pattern) {

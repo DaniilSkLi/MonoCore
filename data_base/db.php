@@ -17,7 +17,7 @@ class MONO_DB
     /* Get connection */
     private static function start()
     {
-        $MONO_HOST = MONO_JSON::Decode(CORE . "data/connect.json");
+        $MONO_HOST = CORE_CFG["db"];
 
         self::$tprefix = $MONO_HOST["table_prefix"];
         self::$connection = new PDO('mysql:dbname='.$MONO_HOST["db"].';host='.$MONO_HOST["host"] . ";charset=utf8", $MONO_HOST["login"], $MONO_HOST["password"]);

@@ -1,19 +1,11 @@
 <?php
 
-
-if (MONO_JSON::Decode(CORE . "data/settings.json")["debug"])
+function MONO_Debug($var)
 {
-    function MONO_Debug($var)
+    if (CORE_CFG["settings"]["debug"])
     {
         echo "<pre>";
         var_dump($var);
         echo "</pre>";
-    }
-}
-else
-{
-    function MONO_Debug($var)
-    {
-
     }
 }
