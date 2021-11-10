@@ -15,7 +15,8 @@
 
       "last" : [
         "/routers.php",
-        "/init.php"
+        "/init.php",
+        "/utils/helper.php"
       ],
 
       "exceptions" : [
