@@ -13,9 +13,13 @@
         "/utils/hooks.php"
       ],
 
+      "last" : [
+        "/routers.php",
+        "/init.php"
+      ],
+
       "exceptions" : [
         "/core.php",
-        "/init.php",
         "/error/errorTemplate.php"
       ],
 

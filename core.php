@@ -18,6 +18,9 @@ class Core
         /* First load */
         $first = CORE_LOAD["load"]["files"]["first"];
 
+        /* Last load */
+        $last = CORE_LOAD["load"]["files"]["last"];
+
         /* Load file-exceptions */
         $nonLoad = CORE_LOAD["load"]["files"]["exceptions"];
         $experimentalMode = CORE_LOAD["load"]["mode"]["experimental"];
@@ -44,7 +47,13 @@ class Core
 
 
         /* Add first load modules to up array */
+        $load = array_diff($load, $first);
         $load = array_merge($first, $load);
+
+
+        /* Add first load modules to up array */
+        $load = array_diff($load, $last);
+        $load = array_merge($load, $last);
 
 
 
@@ -52,11 +61,6 @@ class Core
         foreach ($load as $file) {
             require_once __DIR__ . $file;
         }
-
-
-
-        /* Init file */
-        require_once __DIR__ . "/" . "init.php";
     }
 
     private static function rsearch($folder, $pattern) {

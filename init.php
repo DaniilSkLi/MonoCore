@@ -8,3 +8,5 @@ mb_http_input('UTF-8');
 
 
 MONO_Hooks::do_action("onLoad");
+
+MONO_Router::check();

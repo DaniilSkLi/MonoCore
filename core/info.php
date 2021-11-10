@@ -26,6 +26,6 @@ class MONO_Info {
     }
 
     public static function coreAll() {
-        return MONO_JSON::Decode(CORE . "data/info.json");
+        return MONO_JSON::decode(CORE . "data/info.json");
     }
 }

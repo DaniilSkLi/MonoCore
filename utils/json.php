@@ -1,7 +1,7 @@
 <?php
 
 class MONO_JSON {
-    public static function Encode($var, $file = false)
+    public static function encode($var, $file = false)
     {
         $json = json_encode($var,  JSON_UNESCAPED_UNICODE);
         if ($file)
@@ -12,7 +12,7 @@ class MONO_JSON {
         return $json;
     }
 
-    public static function Decode($json, $file = NULL)
+    public static function decode($json, $file = NULL)
     {
         if ($file == NULL)
         {
